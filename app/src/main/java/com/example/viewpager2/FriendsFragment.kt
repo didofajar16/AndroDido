@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,9 +19,13 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FriendsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var friendAdapter: MyFriendAdapter
+    private val friends = mutableListOf<MyFriend>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +36,38 @@ class FriendsFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friends, container, false)
+        val view = inflater.inflate(R.layout.fragment_friends,container, false)
+        recyclerView = view.findViewById(R.id.recyclerView)
+        setupRecyclerView()
+        return view
+    }
+
+    private fun setupRecyclerView() {
+        friends.addAll(
+            listOf(
+                MyFriend("Dido Fajar Satria", "085967055656", "dido16@gmail.com"),
+                MyFriend("Roby Aja", "085967055656", "Roby@gmail.com"),
+                MyFriend("Huri Ae", "085967055656", "Huri@gmail.com"),
+                MyFriend("Dido Fajar Satria", "085967055656", "dido16@gmail.com"),
+                MyFriend("Roby Aja", "085967055656", "Roby@gmail.com"),
+                MyFriend("Huri Ae", "085967055656", "Huri@gmail.com"),
+                MyFriend("Dido Fajar Satria", "085967055656", "dido16@gmail.com"),
+                MyFriend("Roby Aja", "085967055656", "Roby@gmail.com"),
+                MyFriend("Huri Ae", "085967055656", "Huri@gmail.com"),
+                MyFriend("Dido Fajar Satria", "085967055656", "dido16@gmail.com"),
+                MyFriend("Roby Aja", "085967055656", "Roby@gmail.com"),
+                MyFriend("Huri Ae", "085967055656", "Huri@gmail.com")
+
+            )
+        )
+
+        friendAdapter = MyFriendAdapter(friends)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = friendAdapter
     }
 
     companion object {
